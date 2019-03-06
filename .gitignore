@@ -15,3 +15,11 @@
 *.sx32fsl
 *.wx64fsl
 *.wx32fsl
+.vs/
+Debug/
+lua/Release/
+lua/x64/
+lua_interpreter/x64/
+luac/x64/
+x64/
+Release/
