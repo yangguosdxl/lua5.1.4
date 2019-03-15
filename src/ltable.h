@@ -9,7 +9,7 @@
 
 #include "lobject.h"
 
-
+//g(get)
 #define gnode(t,i)	(&(t)->node[i])
 #define gkey(n)		(&(n)->i_key.nk)
 #define gval(n)		(&(n)->i_val)

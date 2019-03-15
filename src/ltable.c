@@ -80,6 +80,8 @@ static const Node dummynode_ = {
 
 /*
 ** hash for lua_Numbers
+*  0 直接返回
+*  否则把Lua数字（一般是Double 4B）按无符号整数（一般是2B）拆开求和得到哈希值
 */
 static Node *hashnum (const Table *t, lua_Number n) {
   unsigned int a[numints];
@@ -102,13 +104,13 @@ static Node *mainposition (const Table *t, const TValue *key) {
     case LUA_TNUMBER:
       return hashnum(t, nvalue(key));
     case LUA_TSTRING:
-      return hashstr(t, rawtsvalue(key));
+      return hashstr(t, rawtsvalue(key)); // 直接取字符串已经算好的Hash值
     case LUA_TBOOLEAN:
       return hashboolean(t, bvalue(key));
     case LUA_TLIGHTUSERDATA:
       return hashpointer(t, pvalue(key));
     default:
-      return hashpointer(t, gcvalue(key));
+      return hashpointer(t, gcvalue(key)); // 其它可GC对象都按GC对象的地址作为Hash值
   }
 }
 
